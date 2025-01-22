@@ -22,13 +22,11 @@ lateinit var port: String
 lateinit var listenSocket: String
 
 fun regenerate(x: Int) {
-    // Krótkie operacje - można wykonywać w sekcji krytycznej
     ping = abs(x)
     pong = -ping
 }
 
 fun incarnate(x: Int) {
-    // Krótkie operacje - można wykonywać w sekcji krytycznej
     ping = abs(x) + 1
     pong = -ping
 }
@@ -55,10 +53,9 @@ fun sendPong() {
 
 fun criticalSection() {
     println("Sekcja krytyczna")
-    Thread.sleep(5000)  // Symulacja długotrwałej operacji
-    sendPing()            // Wysyłamy PING po sekcji krytycznej
+    Thread.sleep(5000)
+    sendPing()
 
-    // Minimalna sekcja krytyczna do aktualizacji współdzielonych zmiennych
     lock.withLock {
         m = ping
         criticalMessage = 0
